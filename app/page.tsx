@@ -1,10 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   CheckIcon,
   XIcon,
@@ -17,12 +24,23 @@ import {
   UploadIcon,
   ChevronLeftIcon,
   FilterIcon,
-} from "lucide-react"
-import Image from "next/image"
+  TrashIcon,
+  Clock,
+} from "lucide-react";
+import Image from "next/image";
+
+const DoubleCheckIcon = ({ size = 16, color = "currentColor" }) => {
+  return (
+    <span className={`relative inline-flex font-light text-[#1C1C1C]`}>
+      <CheckIcon size={size} color={color} className="absolute -left-1" />
+      <CheckIcon size={size} color={color} />
+    </span>
+  );
+};
 
 export default function MenuPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const menuItems = [
     {
@@ -73,55 +91,51 @@ export default function MenuPage() {
       type: "Combo",
       image: "/egusi.svg",
     },
-  ]
+  ];
 
-  const totalItems = 236
-  const itemsPerPage = 50
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  const totalItems = 236;
+  const itemsPerPage = 50;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
+      setCurrentPage(currentPage + 1);
     }
-  }
+  };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+      setCurrentPage(currentPage - 1);
     }
-  }
+  };
 
   const renderStatus = (status: boolean) => {
     return status ? (
-      <CheckIcon className="mx-auto h-4 w-4 text-green-500" />
+      // @ts-ignore
+      <DoubleCheckIcon className="text-blue-500" />
     ) : (
-      <XIcon className="mx-auto h-4 w-4 text-red-500" />
-    )
-  }
+      <XIcon className="mx-auto h-4 w-4 text-[#1C1C1C]" />
+    );
+  };
 
   // Column header component with badge
   const ColumnHeader = ({ title }: { title: string }) => (
     <div className="flex items-center">
-      <Badge variant="outline" className="px-2 py-0.5 h-6 font-normal flex items-center gap-1">
+      <Badge
+        variant="outline"
+        className="px-2 py-0.5 h-6 font-normal flex items-center gap-1"
+      >
         {title}
         <ChevronRightIcon className="h-3 w-3 rotate-90 ml-1" />
       </Badge>
     </div>
-  )
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-white p-2 border-b flex items-center">
-        <div className="flex space-x-2 items-center ml-2 lg:ml-0">
-          <div className="flex space-x-1 hidden sm:flex">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          </div>
-        </div>
-
-        <div className="mx-2 sm:mx-4 flex items-center px-2 sm:px-4 py-1 bg-gray-100 rounded-md flex-grow sm:flex-grow-0 ml-8 lg:ml-4">
-          <HomeIcon className="w-4 h-4 mr-2" />
+      <header className=" p-2 border-b flex items-center">
+        <HomeIcon className="w-4 h-4 font-normal " />
+        <div className="mx-2 sm:mx-4 flex items-center px-2 sm:px-4 py-1 bg-white shadow-sm text-sm font-normal rounded-md flex-grow sm:flex-grow-0 ml-8 lg:ml-4">
           <span className="truncate">Menu</span>
           <button className="ml-2">×</button>
         </div>
@@ -136,61 +150,83 @@ export default function MenuPage() {
         </div>
       </header>
 
-      <main className="flex-1 p-4 sm:p-6">
-        <div className="mb-4 sm:mb-6">
-          <h1 className="text-xl font-semibold">MENU LIST</h1>
+      <main className="flex-1  p-4 sm:p-6">
+        <div className="sm:flex p-3 mb-6 rounded-3xl  sm:items-center bg-[#F6F6F6] shadow-sm  sm:justify-between">
+          <div className="">
+            <h1 className="text-lg font-extralight">MENU LIST</h1>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row justify-end ">
+            <Button
+              variant="outline"
+              className="flex text-[#1C1C1C] font-normal p-4 items-center gap-2 text-xs "
+            >
+              <DownloadIcon className="w-4 h-4" />
+              <span className="hidden sm:inline">
+                Download template in csv file
+              </span>
+              <span className="inline sm:hidden">Download CSV</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="flex text-[#1C1C1C] font-normal p-4 items-center gap-2 text-xs "
+            >
+              <UploadIcon className="w-4 h-4" />
+              <span className="hidden sm:inline">Upload csv file</span>
+              <span className="inline sm:hidden">Upload CSV</span>
+            </Button>
+          </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-end mb-4 sm:mb-6 gap-2">
-          <Button variant="outline" className="flex items-center gap-2 text-xs sm:text-sm">
-            <DownloadIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">Download template in csv file</span>
-            <span className="inline sm:hidden">Download CSV</span>
-          </Button>
-          <Button variant="outline" className="flex items-center gap-2 text-xs sm:text-sm">
-            <UploadIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">Upload csv file</span>
-            <span className="inline sm:hidden">Upload CSV</span>
-          </Button>
-        </div>
-
-        {/* Food Menu List */}
-        <div className="bg-white rounded-lg shadow-sm">
-          {/* Menu Header */}
-          <div className="p-3 sm:p-4 border-b flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className=" bg-[#F6F6F6] rounded-lg shadow-sm">
+          <div className="p-3 sm:p-4 border-b flex flex-col sm:flex-row gap-3">
             <div className="flex items-center">
               <FilterIcon className="w-5 h-5 mr-2" />
-              <span className="font-bold">FOOD MENU LIST</span>
+              <span className="font-bold whitespace-nowrap">
+                FOOD MENU LIST
+              </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-              <div className="relative w-full sm:w-auto">
+            <div className="flex w-full sm:w-auto flex-col sm:flex-row sm:ml-auto gap-2">
+              <div className="relative bg-white flex-grow sm:flex-grow-0">
                 <Input
                   type="text"
-                  placeholder="Search for a menu"
-                  className="pl-8 w-full sm:w-52 md:w-64 lg:w-80"
+                  placeholder="Search menu"
+                  className="pl-8 w-full text-black sm:w-52 md:w-64"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <SearchIcon className="w-4 h-4 absolute left-2.5 top-2.5 text-gray-500" />
               </div>
 
-              <div className="flex items-center gap-1">
-                <div className="text-xs text-gray-500">
-                  {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, totalItems)} of{" "}
+              <div className="flex items-center gap-1 self-end sm:self-auto">
+                <Button variant="outline" className="text-xs text-gray-500">
+                  {(currentPage - 1) * itemsPerPage + 1} -{" "}
+                  {Math.min(currentPage * itemsPerPage, totalItems)} of{" "}
                   {totalItems}
-                </div>
-                <Button variant="ghost" size="icon" onClick={prevPage} disabled={currentPage === 1}>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={prevPage}
+                  disabled={currentPage === 1}
+                >
                   <ChevronLeftIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon" onClick={nextPage} disabled={currentPage === totalPages}>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={nextPage}
+                  disabled={currentPage === totalPages}
+                >
                   <ChevronRightIcon className="h-4 w-4" />
                 </Button>
               </div>
             </div>
           </div>
 
-          {/* Mobile Cards View */}
           <div className="sm:hidden divide-y">
             {menuItems.map((item, i) => (
               <div key={i} className="p-4">
@@ -213,13 +249,15 @@ export default function MenuPage() {
 
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
-                    <span className="text-gray-500">Time:</span> {item.cookingTime}
+                    <span className="text-gray-500">Time:</span>{" "}
+                    {item.cookingTime}
                   </div>
                   <div>
                     <span className="text-gray-500">Type:</span> {item.type}
                   </div>
                   <div>
-                    <span className="text-gray-500">Calories:</span> {item.calories}
+                    <span className="text-gray-500">Calories:</span>{" "}
+                    {item.calories}
                   </div>
                   <div className="flex items-center">
                     <span className="text-gray-500">Available:</span>
@@ -230,8 +268,7 @@ export default function MenuPage() {
             ))}
           </div>
 
-          {/* Desktop Table View using shadcn/ui Table */}
-          <div className="hidden sm:block">
+          <div className="hidden bg-transparent sm:block">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -265,8 +302,22 @@ export default function MenuPage() {
                   <TableHead className="text-center hidden md:table-cell">
                     <ColumnHeader title="Promotion" />
                   </TableHead>
-                  <TableHead className="w-10"></TableHead>
-                  <TableHead className="w-10"></TableHead>
+                  <TableHead className="w-10">
+                    <Badge
+                      variant="outline"
+                      className="px-2 py-0.5 h-6 font-normal flex items-center gap-1"
+                    >
+                      <Clock />
+                    </Badge>
+                  </TableHead>
+                  <TableHead className="w-10">
+                    <Badge
+                      variant="outline"
+                      className="px-2 py-0.5 h-6 font-normal flex items-center gap-1"
+                    >
+                      <TrashIcon />
+                    </Badge>
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -274,7 +325,7 @@ export default function MenuPage() {
                   <TableRow key={i} className="hover:bg-gray-50">
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="w-12 h-12 mr-3 rounded overflow-hidden">
+                        <div className="w-16 h-16 mr-3 rounded overflow-hidden">
                           <Image
                             src={item.image || "/placeholder.svg"}
                             alt={item.name}
@@ -290,18 +341,24 @@ export default function MenuPage() {
                     <TableCell>{item.cookingTime}</TableCell>
                     <TableCell>{item.calories}</TableCell>
                     <TableCell>{item.type}</TableCell>
-                    <TableCell className="text-center">{renderStatus(i % 2 === 0)}</TableCell>
-                    <TableCell className="text-center hidden lg:table-cell">{renderStatus(i % 3 === 0)}</TableCell>
-                    <TableCell className="text-center hidden lg:table-cell">{renderStatus(i % 2 === 1)}</TableCell>
-                    <TableCell className="text-center hidden md:table-cell">{renderStatus(i % 3 === 1)}</TableCell>
-                    <TableCell className="text-center hidden md:table-cell">{renderStatus(i % 2 === 0)}</TableCell>
                     <TableCell className="text-center">
-                      <Button variant="ghost" size="icon">
-                        <PlusIcon className="h-4 w-4" />
-                      </Button>
+                      {renderStatus(i % 2 === 0)}
                     </TableCell>
+                    <TableCell className="text-center hidden lg:table-cell">
+                      {renderStatus(i % 3 === 0)}
+                    </TableCell>
+                    <TableCell className="text-center hidden lg:table-cell">
+                      {renderStatus(i % 2 === 1)}
+                    </TableCell>
+                    <TableCell className="text-center hidden md:table-cell">
+                      {renderStatus(i % 3 === 1)}
+                    </TableCell>
+                    <TableCell className="text-center hidden md:table-cell">
+                      {renderStatus(i % 2 === 0)}
+                    </TableCell>
+
                     <TableCell className="text-center">
-                      <Button variant="ghost" size="icon">
+                      <Button className="bg-[#F6F6F6] px-6" variant="outline" size="icon">
                         <ChevronRightIcon className="h-5 w-5" />
                       </Button>
                     </TableCell>
@@ -320,5 +377,5 @@ export default function MenuPage() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

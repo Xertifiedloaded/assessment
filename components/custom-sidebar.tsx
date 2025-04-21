@@ -1,11 +1,17 @@
-"use client"
-import Link from "next/link"
-import { useState } from "react"
-import { LayoutIcon, ListIcon, CircleUserIcon, MenuIcon, XIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import {
+  LayoutIcon,
+  ListIcon,
+  CircleUserIcon,
+  MenuIcon,
+  XIcon,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function CustomSidebar() {
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
@@ -15,10 +21,19 @@ export function CustomSidebar() {
         className="fixed top-2 left-2 z-50 lg:hidden"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
-        {mobileOpen ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+        {mobileOpen ? (
+          <XIcon className="h-5 w-5" />
+        ) : (
+          <MenuIcon className="h-5 w-5" />
+        )}
       </Button>
 
-      {mobileOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setMobileOpen(false)} />}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
 
       <div
         className={`
@@ -29,6 +44,13 @@ export function CustomSidebar() {
       `}
       >
         <div className="flex flex-col items-center gap-8">
+          <div className="flex space-x-2 items-center ">
+            <div className="flex mt-8 sm:mt-0 space-x-1  sm:flex">
+              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            </div>
+          </div>
           <Link href="/" className="p-3 rounded-md bg-gray-100">
             <LayoutIcon className="h-5 w-5 text-gray-700" />
           </Link>
@@ -36,14 +58,11 @@ export function CustomSidebar() {
           <Link href="/menu" className="p-3 rounded-md bg-gray-100">
             <ListIcon className="h-5 w-5 text-gray-700" />
           </Link>
-        </div>
-
-        <div className="mt-auto">
-          <Link href="/profile" className="p-3 rounded-md hover:bg-gray-100">
+          <Link href="/profile" className="p-3 rounded-md bg-gray-100">
             <CircleUserIcon className="h-5 w-5 text-gray-700" />
           </Link>
         </div>
       </div>
     </>
-  )
+  );
 }
