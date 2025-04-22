@@ -51,14 +51,14 @@ export function CustomSidebar() {
               <div className="w-2 h-2 rounded-full bg-green-500"></div>
             </div>
           </div>
-          <Link href="/" className="p-3 rounded-md bg-gray-100">
+          <Link href="/" className="p-3 rounded-md  bg-color">
             <LayoutIcon className="h-5 w-5 text-gray-700" />
           </Link>
 
-          <Link href="/menu" className="p-3 rounded-md bg-gray-100">
+          <Link href="/menu" className="p-3 rounded-md  bg-color">
             <ListIcon className="h-5 w-5 text-gray-700" />
           </Link>
-          <Link href="/profile" className="p-3 rounded-md bg-gray-100">
+          <Link href="/profile" className="p-3 rounded-md  bg-color">
             <CircleUserIcon className="h-5 w-5 text-gray-700" />
           </Link>
         </div>

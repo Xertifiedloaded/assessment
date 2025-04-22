@@ -118,7 +118,6 @@ export default function MenuPage() {
     );
   };
 
-  // Column header component with badge
   const ColumnHeader = ({ title }: { title: string }) => (
     <div className="flex items-center">
       <Badge
@@ -134,11 +133,13 @@ export default function MenuPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className=" p-2 border-b flex items-center">
-        <HomeIcon className="w-4 h-4 font-normal " />
-        <div className="mx-2 sm:mx-4 flex items-center px-2 sm:px-4 py-1 bg-white shadow-sm text-sm font-normal rounded-md flex-grow sm:flex-grow-0 ml-8 lg:ml-4">
-          <span className="truncate">Menu</span>
-          <button className="ml-2">×</button>
-        </div>
+        <HomeIcon className="w-4 h-4 hidden md:block font-normal " />
+        <Button
+          variant="outline"
+          className="mx-2  bg-color sm:mx-4 flex items-center px-2 sm:px-4 py-1  shadow-sm text-sm font-normal rounded-md  ml-8 lg:ml-4"
+        >
+          <span className="truncate">Menu</span>×
+        </Button>
 
         <button className="p-1 hidden sm:block">+</button>
 
@@ -358,7 +359,11 @@ export default function MenuPage() {
                     </TableCell>
 
                     <TableCell className="text-center">
-                      <Button className="bg-[#F6F6F6] px-6" variant="outline" size="icon">
+                      <Button
+                        className="bg-[#F6F6F6] h-12 w-12   "
+                        variant="outline"
+                        size="icon"
+                      >
                         <ChevronRightIcon className="h-5 w-5" />
                       </Button>
                     </TableCell>
@@ -370,10 +375,11 @@ export default function MenuPage() {
         </div>
       </main>
 
-      {/* Floating Add Button */}
-      <div className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-10">
-        <Button size="icon" className="h-12 w-12 rounded-full shadow-lg">
-          <PlusIcon className="h-6 w-6" />
+      <div className="fixed bottom-4 sm:bottom-8  right-4 sm:right-8 z-10">
+        <Button size="icon" className="h-14 w-14 border    bg-color     shadow-3xl">
+          <div className="border border-black rounded-sm p-1 text-black">
+            <PlusIcon className="h-6 w-6" />
+          </div>
         </Button>
       </div>
     </div>
