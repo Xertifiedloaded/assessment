@@ -111,8 +111,7 @@ export default function MenuPage() {
 
   const renderStatus = (status: boolean) => {
     return status ? (
-      // @ts-ignore
-      <DoubleCheckIcon className="text-blue-500" />
+      <DoubleCheckIcon color="#1C1C1C" size={16} />
     ) : (
       <XIcon className="mx-auto h-4 w-4 text-[#1C1C1C]" />
     );
